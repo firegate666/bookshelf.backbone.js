@@ -5,12 +5,15 @@ if (empty($_SESSION['books'])) {
 	$_SESSION['books'] = array();
 }
 
-$model = json_decode($_POST['model'], true);
-
 if (empty($_GET['id'])) {
+	$model = json_decode($_POST['model'], true);
 	$model['id'] = count($_SESSION['books']) + 1;
 	$model['created_at'] = time();
+} else if (!empty($_POST['_method']) && $_POST['_method'] == 'DELETE') {
+	unset($_SESSION['books'][$_GET['id']]);
+	die('deleted');
 } else {
+	$model = json_decode($_POST['model'], true);
 	// copy changes
 	$old_data = $_SESSION['books'][$_GET['id']];
 	foreach ($model as $k => $v) {
