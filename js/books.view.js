@@ -35,18 +35,15 @@
 				book_signature = this.$el.find('input[name="signature"]').val(),
 				book_name = this.$el.find('input[name="name"]').val();
 
-			if (!book_signature || !book_name) {
-				alert('enter proper name and signature');
-				return;
-			}
-
 			item.set({
 				signature: item.get('signature') + book_signature,
 				name: book_name
 			});
-			item.save();
 
-			this.collection.add(item); // add item to collection; view is updated via event 'add'
+			if (item.isValid()) {
+				item.save();
+				this.collection.add(item); // add item to collection; view is updated via event 'add'
+			}
 		},
 
 		appendItem: function(item){

@@ -17,6 +17,18 @@
 			name: 'My Book',
 			created_at: null,
 			changed_at: null
+		},
+
+		initialize: function() {
+			this.on("invalid", function(model, error) {
+			  alert(error);
+			});
+		},
+
+		validate: function(attrs, options) {
+			if (!attrs.signature || !attrs.name) {
+				return 'enter proper name and signature';
+			}
 		}
 
 	});
