@@ -7,7 +7,7 @@ if (empty($_SESSION['books'])) {
 
 if (empty($_GET['id'])) {
 	$model = json_decode($_POST['model'], true);
-	$model['id'] = count($_SESSION['books']) + 1;
+	$model['id'] = !empty($_SESSION['books']) ? max(array_keys($_SESSION['books'])) + 1 : 1;
 	$model['created_at'] = time();
 } else if (!empty($_POST['_method']) && $_POST['_method'] == 'DELETE') {
 	unset($_SESSION['books'][$_GET['id']]);
