@@ -12,16 +12,26 @@
 			}
 		},
 
-		defaults: {
-			title: '',
-			author: '',
-			publisher: '',
-			signature: '',
-			keywords: '',
-			isbn13: ''
+		/**
+		 * default book values
+		 *
+		 * @var {object}
+		 */
+		defaults : {
+			title : '',
+			author : '',
+			publisher : '',
+			signature : '',
+			keywords : '',
+			isbn13 : ''
 		},
 
-		validate: function(attrs, options) {
+		/**
+		 * validate model
+		 *
+		 * @return {object|null} containing message and key of invalid field
+		 */
+		validate : function(attrs, options) {
 			if (!attrs.title) {
 				return {
 					key: 'title',

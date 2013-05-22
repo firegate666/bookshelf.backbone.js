@@ -1,58 +1,83 @@
 (function($, app, Backbone){
 
 	app.BookView = Backbone.View.extend({
-		tagName: 'tr', // name of (orphan) root tag in this.el
-		template: null,
+		tagName : 'tr', // name of (orphan) root tag in this.el
+		readOnly : true,
 
-		events: {
+		events : {
+			'click span.edit': 'renderEdit',
+			'click span.save': 'updateModel',
 			'click span.delete': 'remove'
 		},
 
-		initialize: function(options) {
-			if (options.template) {
-				this.template = options.template;
-			}
+		initialize : function() {
+			_.bindAll(this, 'render', 'renderShow', 'renderEdit', 'unrender', 'remove'); // every function that uses 'this' as the current object should be in here
 
-			_.bindAll(this, 'render', 'renderBookData', 'unrender', 'swap', 'remove'); // every function that uses 'this' as the current object should be in here
-
-			this.model.bind('change', this.renderBookData);
+			this.model.bind('change', this.render);
 			this.model.bind('remove', this.unrender);
 		},
 
-		renderBookData: function(a, b, c) {
-			var content = this.model.get('signature')+' '+this.model.get('name');
-
-			if (this.model.get('created_at')) {
-				content += ', created at ' + (new Date(parseInt(this.model.get('created_at'), 10)*1000));
+		/**
+		 * render this book view
+		 */
+		render : function() {
+			if (this.readOnly) {
+				return this.renderShow();
+			} else {
+				return this.renderEdit();
 			}
+		},
 
-			if (this.model.get('changed_at')) {
-				content += ', changed at ' + (new Date(parseInt(this.model.get('changed_at'), 10)*1000));
-			}
-
-			$(this.el).find('.model').html(content);
+		/**
+		 * render read only mode
+		 */
+		renderShow : function(){
+			$(this.el).html(_.template(TM.getTemplate('book'), {book : this.model}));
 			return this;
 		},
 
-		render: function(){
-			$(this.el).html(_.template(this.template, {book: this.model}));
+		/**
+		 * render editable mode
+		 */
+		renderEdit : function(){
+			this.readOnly = false;
+
+			$(this.el).html(_.template(TM.getTemplate('book_edit'), {book : this.model}));
 			return this;
 		},
 
-		unrender: function(){
+		/**
+		 * try to update and save model with new data
+		 */
+		updateModel : function() {
+			var _self = this,
+				$el = $(this.el),
+				form_data = {};
+
+			$el.find('input').each(function(k, input) {
+				var $input = $(input);
+				form_data[$input.attr('name')] = $input.val();
+			});
+
+			this.model.save(form_data, {
+				success: function() {
+					_self.readOnly = true;
+					_self.render();
+				}
+			});
+		},
+
+		/**
+		 * unrender row
+		 */
+		unrender : function(){
 			$(this.el).remove();
 		},
 
-		swap: function(){
-			var swapped = {
-				signature: this.model.get('name'),
-				name: this.model.get('signature')
-			};
-			this.model.set(swapped);
-			this.model.save();
-		},
-
-		remove: function(){
+		/**
+		 * delete model
+		 */
+		remove : function(){
 			this.model.destroy();
 		}
 	});

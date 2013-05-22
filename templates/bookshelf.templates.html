@@ -1,0 +1,74 @@
+<!--
+	dialog for adding new books
+-->
+<script type="text/template" id="new_book" class="template">
+	<form name="newBook" action="post">
+		<div class="error"></div>
+		<input type="hidden" name="id" value="" />
+		&nbsp;Title&nbsp;<input name='title' value=""/>
+		&nbsp;Author&nbsp;<input name='author' value="" />
+		&nbsp;Publisher&nbsp;<input name='publisher' value="" />
+		&nbsp;Signature&nbsp;<input name='signature' value="" />
+		&nbsp;Keywords&nbsp;<input name='keywords' value="" />
+		&nbsp;ISBN-13&nbsp;<input name='isbn13' value="" />
+	</form>
+	<button id='add'>Add book</button>
+</script>
+
+<!--
+	book list header and wrapper
+-->
+<script type="text/template" id="books" class="template">
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Publisher</th>
+				<th>Author</th>
+				<th>Signature</th>
+				<th>Keywords</th>
+				<th>ISBN-13</th>
+				<th><!--action column--></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--books here-->
+		</tbody>
+	</table>
+
+</script>
+
+<!--
+	book list row
+-->
+<script type="text/template" id="book" class="template">
+	<td><%= book.get('id') %></td>
+	<td><%= book.get('title') %></td>
+	<td><%= book.get('publisher') %></td>
+	<td><%= book.get('author') %></td>
+	<td><%= book.get('signature') %></td>
+	<td><%= book.get('keywords') %></td>
+	<td><%= book.get('isbn13') %></td>
+	<td>
+		<span class="edit">edit</span>
+		|
+		<span class="delete">delete</span>
+	</td>
+</script>
+
+<!--
+	book list row editable
+-->
+<script type="text/template" id="book_edit" class="template">
+	<td><%= book.get('id') %> <input type="hidden" name="id" value="<%= book.get('id') %>" /></td>
+	<td><input type="text" name="title" value="<%= book.get('title') %>" /></td>
+	<td><input type="text" name="publisher" value="<%= book.get('publisher') %>" /></td>
+	<td><input type="text" name="author" value="<%= book.get('author') %>" /></td>
+	<td><input type="text" name="signature" value="<%= book.get('signature') %>" /></td>
+	<td><input type="text" name="keywords" value="<%= book.get('keywords') %>" /></td>
+	<td><input type="text" name="isbn13" value="<%= book.get('isbn13') %>" /></td>
+	<td>
+		<span class="save">save</span>
+	</td>
+</script>
