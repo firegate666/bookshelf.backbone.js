@@ -1,20 +1,25 @@
+/*jslint browser: true*/
+/*global jQuery*/
+
 (function($, app){
+	'use strict';
 
 	/**
 	 * internal storage
 	 * 
 	 * @var {string}
 	 */
-	var templates;
+	var templates,
+		TemplateManager;
 
 	/**
 	 * constructor
 	 *
 	 * @param {object} templates_arg list of templates
 	 */
-	app.TemplateManager = function(templates_arg) {
+	TemplateManager = function(templates_arg) {
 		templates = templates_arg || {};
-	}
+	};
 
 	/**
 	 * add single template
@@ -23,10 +28,10 @@
 	 * @param {string} content
 	 * @return {TemplateManager}
 	 */
-	app.TemplateManager.prototype.addTemplate = function(name, content) {
+	TemplateManager.prototype.addTemplate = function(name, content) {
 		templates[name] = content;
 		return this;
-	}
+	};
 
 	/**
 	 * add multiple templates at once
@@ -35,9 +40,9 @@
 	 * @param {string} content templates
 	 * @return {TemplateManager}
 	 */
-	app.TemplateManager.prototype.addTemplates = function(match, content) {
+	TemplateManager.prototype.addTemplates = function(match, content) {
 		// temp add to page to allow jquery to operate on it
-		$(content).appendTo('body').wrapAll('<div id="templates" />')
+		$(content).appendTo('body').wrapAll('<div id="templates" />');
 
 		// extract templates and add to store
 		$(match, $('body')).each(function() {
@@ -48,7 +53,7 @@
 		$('#templates').remove();
 
 		return this;
-	}
+	};
 
 	/**
 	 * get template
@@ -56,8 +61,10 @@
 	 * @param {string} name
 	 * @return {string}
 	 */
-	app.TemplateManager.prototype.getTemplate = function(name) {
+	TemplateManager.prototype.getTemplate = function(name) {
 		return templates[name];
-	}
+	};
 
-})(jQuery, window);
+	app.TemplateManager = TemplateManager;
+
+}(jQuery, window));

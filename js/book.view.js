@@ -1,4 +1,8 @@
-(function($, app, Backbone){
+/*jslint browser: true*/
+/*global jQuery, Backbone, _*/
+
+(function($, app, Backbone, us) {
+	'use strict';
 
 	app.BookView = Backbone.View.extend({
 		tagName : 'tr', // name of (orphan) root tag in this.el
@@ -11,7 +15,7 @@
 		},
 
 		initialize : function() {
-			_.bindAll(this, 'render', 'renderShow', 'renderEdit', 'unrender', 'remove'); // every function that uses 'this' as the current object should be in here
+			us.bindAll(this, 'render', 'renderShow', 'renderEdit', 'unrender', 'remove'); // every function that uses 'this' as the current object should be in here
 
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.unrender);
@@ -23,16 +27,16 @@
 		render : function() {
 			if (this.readOnly) {
 				return this.renderShow();
-			} else {
-				return this.renderEdit();
 			}
+
+			return this.renderEdit();
 		},
 
 		/**
 		 * render read only mode
 		 */
 		renderShow : function(){
-			$(this.el).html(_.template(TM.getTemplate('book'), {book : this.model}));
+			$(this.el).html(us.template(app.TM.getTemplate('book'), {book : this.model}));
 			return this;
 		},
 
@@ -42,7 +46,7 @@
 		renderEdit : function(){
 			this.readOnly = false;
 
-			$(this.el).html(_.template(TM.getTemplate('book_edit'), {book : this.model}));
+			$(this.el).html(us.template(app.TM.getTemplate('book_edit'), {book : this.model}));
 			return this;
 		},
 
@@ -54,7 +58,7 @@
 				$el = $(this.el),
 				form_data = {};
 
-			$el.find('input').each(function(k, input) {
+			us.each($el.find('input'), function(input) {
 				var $input = $(input);
 				form_data[$input.attr('name')] = $input.val();
 			});
@@ -82,4 +86,4 @@
 		}
 	});
 
-})(jQuery, window, Backbone);
+}(jQuery, window, Backbone, _));

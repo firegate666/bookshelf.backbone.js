@@ -1,4 +1,8 @@
-(function($, app, Backbone){
+/*jslint browser: true*/
+/*global Backbone, _*/
+
+(function(app, Backbone, us){
+	 'use strict';
 
 	app.NewBookView = Backbone.View.extend({
 		counter: 0,
@@ -8,7 +12,7 @@
 		},
 
 		initialize: function(){
-			_.bindAll(this, 'render', 'addItem'); // fixes loss of context for 'this' within methods
+			us.bindAll(this, 'render', 'addItem'); // fixes loss of context for 'this' within methods
 
 			this.render(); // not all views are self-rendering. This one is.
 		},
@@ -17,7 +21,7 @@
 		 * render new book form
 		 */
 		render: function(){
-			this.$el.append(_.template(TM.getTemplate('new_book')));
+			this.$el.append(us.template(app.TM.getTemplate('new_book')));
 		},
 
 		/**
@@ -28,18 +32,24 @@
 		 */
 		addItem: function(){
 			var _self = this,
-				new_book = new Book(),
+				new_book = new app.Book(),
 				$form = this.$el.find('form'),
 				form_data = $form.serializeArray(),
 				book_data = {},
 				book_collection = this.collection;
 
-			$.each(form_data, function(k, input) {
+			us.each(form_data, function(input) {
 				book_data[input.name] = input.value;
 			});
 
 			new_book.on("invalid", function(model, error) {
-				$form.find('.error').text(error.message);
+				var invalid_value = model.get(error.key);
+
+				$form.find('.error').text(
+					error.message
+					+ '; is '
+					+ (invalid_value || 'empty')
+				);
 			});
 
 			new_book.save(book_data, {success: function() {
@@ -61,4 +71,4 @@
 		}
 	});
 
-})(jQuery, window, Backbone);
+}(window, Backbone, _));

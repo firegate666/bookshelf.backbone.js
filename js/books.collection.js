@@ -1,8 +1,12 @@
-(function($, app, Backbone){
+/*jslint browser: true*/
+/*global Backbone*/
+
+(function(app, Backbone){
+	'use strict';
 
 	app.Books = Backbone.Collection.extend({
-		model: Book,
+		model: app.Book,
 		url: 'books/'
 	});
 
-})(jQuery, window, Backbone);
+}(window, Backbone));

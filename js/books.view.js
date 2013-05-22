@@ -1,9 +1,13 @@
-(function($, app, Backbone){
+/*jslint browser: true*/
+/*global Backbone, _*/
+
+(function(app, Backbone, us){
+	'use strict';
 
 	app.BooksView = Backbone.View.extend({
 
 		initialize: function(){
-			_.bindAll(this, 'render', 'appendItem'); // fixes loss of context for 'this' within methods
+			us.bindAll(this, 'render', 'appendItem'); // fixes loss of context for 'this' within methods
 
 			this.collection.on('add', this.appendItem); // collection event binder
 			this.render(); // not all views are self-rendering. This one is.
@@ -14,9 +18,9 @@
 		 */
 		render: function(){
 			var self = this;
-			this.$el.append(_.template(TM.getTemplate('books')));
+			this.$el.append(us.template(app.TM.getTemplate('books')));
 
-			_(this.collection.models).each(function(item){ // in case collection is not empty
+			us(this.collection.models).each(function(item){ // in case collection is not empty
 				self.appendItem(item);
 			}, this);
 		},
@@ -27,7 +31,7 @@
 		 * @param {Book} book
 		 */
 		appendItem: function(book){
-			var itemView = new BookView({
+			var itemView = new app.BookView({
 				model: book
 			});
 			
@@ -36,4 +40,4 @@
 		}
 	});
 
-})(jQuery, window, Backbone);
+}(window, Backbone, _));
