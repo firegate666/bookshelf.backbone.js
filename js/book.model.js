@@ -13,21 +13,34 @@
 		},
 
 		defaults: {
-			signature: 'SIG-',
-			name: 'My Book',
-			created_at: null,
-			changed_at: null
-		},
-
-		initialize: function() {
-			this.on("invalid", function(model, error) {
-			  alert(error);
-			});
+			title: '',
+			author: '',
+			publisher: '',
+			signature: '',
+			keywords: '',
+			isbn13: ''
 		},
 
 		validate: function(attrs, options) {
-			if (!attrs.signature || !attrs.name) {
-				return 'enter proper name and signature';
+			if (!attrs.title) {
+				return {
+					key: 'title',
+					message: 'enter proper title'
+				}
+			}
+
+			if (!attrs.author) {
+				return {
+					key: 'author',
+					message: 'enter proper author'
+				}
+			}
+
+			if (attrs.isbn13 && attrs.isbn13.length < 13) {
+				return {
+					key: 'isbn13',
+					message: 'isbn-13 must be 13 characters'
+				}
 			}
 		}
 

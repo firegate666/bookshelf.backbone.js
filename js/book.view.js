@@ -1,11 +1,10 @@
 (function($, app, Backbone){
 
 	app.BookView = Backbone.View.extend({
-		tagName: 'li', // name of (orphan) root tag in this.el
+		tagName: 'tr', // name of (orphan) root tag in this.el
 		template: null,
 
 		events: {
-			'click span.swap':  'swap',
 			'click span.delete': 'remove'
 		},
 
@@ -36,8 +35,8 @@
 		},
 
 		render: function(){
-			$(this.el).html(_.template(this.template));
-			return this.renderBookData(); // for chainable calls, like .render().el
+			$(this.el).html(_.template(this.template, {book: this.model}));
+			return this;
 		},
 
 		unrender: function(){

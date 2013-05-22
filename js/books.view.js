@@ -8,8 +8,6 @@
 		},
 
 		initialize: function(){
-			var _self = this;
-
 			this.$el = $('body');
 
 			_.bindAll(this, 'render', 'addItem', 'appendItem'); // fixes loss of context for 'this' within methods
@@ -25,6 +23,9 @@
 		render: function(){
 			var self = this;
 			this.$el.append(_.template(this.$el.find('#books').html()));
+
+			this.$el.find('#new_book_form').html('').append(_.template(this.$el.find('#new_book').html(), {form_data: new Book()}));
+
 			_(this.collection.models).each(function(item){ // in case collection is not empty
 				self.appendItem(item);
 			}, this);
@@ -32,18 +33,26 @@
 
 		addItem: function(){
 			var item = new Book(),
-				book_signature = this.$el.find('input[name="signature"]').val(),
-				book_name = this.$el.find('input[name="name"]').val();
+				$form = this.$el.find('form[name="newBook"]'),
+				form_data = $form.serializeArray(),
+				book_data = {},
+				book_collection = this.collection;
 
-			item.set({
-				signature: item.get('signature') + book_signature,
-				name: book_name
+			$.each(form_data, function(k, input) {
+				book_data[input.name] = input.value;
 			});
 
-			if (item.isValid()) {
-				item.save();
-				this.collection.add(item); // add item to collection; view is updated via event 'add'
-			}
+			this.$el.find('#new_book_form').html('').append(_.template(this.$el.find('#new_book').html(), {form_data: book_data}));
+			this.$el.find('form[name="newBook"]').find('input').css('background', 'auto');
+
+			item.on("invalid", function(model, error) {
+				$form.find('input[name="'+error.key+'"]').css('background', 'red');
+				$form.find('.error').text(error.message);
+			});
+
+			item.save(book_data, {success: function() {
+				book_collection.add(item); // add item to collection; view is updated via event 'add'
+			}});
 		},
 
 		appendItem: function(item){
@@ -51,7 +60,7 @@
 				model: item,
 				template: this.$el.find('#book').html()
 			});
-			$('ul', this.$el).append(itemView.render().el);
+			$('tbody', this.$el).append(itemView.render().el);
 		}
 	});
 
