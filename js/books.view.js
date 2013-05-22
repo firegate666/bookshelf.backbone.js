@@ -24,7 +24,7 @@
 			var self = this;
 			this.$el.append(_.template(this.$el.find('#books').html()));
 
-			this.$el.find('#new_book_form').html('').append(_.template(this.$el.find('#new_book').html(), {form_data: new Book()}));
+			this.$el.find('#new_book_form').html('').append(_.template(this.$el.find('#new_book').html()));
 
 			_(this.collection.models).each(function(item){ // in case collection is not empty
 				self.appendItem(item);
@@ -42,11 +42,7 @@
 				book_data[input.name] = input.value;
 			});
 
-			this.$el.find('#new_book_form').html('').append(_.template(this.$el.find('#new_book').html(), {form_data: book_data}));
-			this.$el.find('form[name="newBook"]').find('input').css('background', 'auto');
-
 			item.on("invalid", function(model, error) {
-				$form.find('input[name="'+error.key+'"]').css('background', 'red');
 				$form.find('.error').text(error.message);
 			});
 
