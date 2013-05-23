@@ -69,16 +69,23 @@
 		updateModel : function() {
 			var _self = this,
 				value = $(this.el).find('input').val(),
-				form_data = {};
-
-			form_data[this.attribute] = value;
-
-			this.model.save(form_data, {
-				success: function() {
+				form_data = {},
+				cb_success = function() {
 					_self.readOnly = true;
 					_self.render();
-				}
-			});
+				};
+
+
+			if (this.model.get(this.attribute) !== value) {
+				form_data[this.attribute] = value;
+				this.model.save(form_data, {
+					patch: true,
+					wait: true,
+					success: cb_success
+				});
+			} else {
+				cb_success();
+			}
 		}
 
 	});
