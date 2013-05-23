@@ -78,6 +78,8 @@
 			});
 
 			this.model.save(form_data, {
+				patch: true,
+				wait: true,
 				success: function() {
 					_self.readOnly = true;
 					_self.render();
