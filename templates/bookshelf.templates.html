@@ -43,18 +43,26 @@
 	book list row
 -->
 <script type="text/template" id="book" class="template">
-	<td><%= book.get('id') %></td>
-	<td><%= book.get('title') %></td>
-	<td><%= book.get('publisher') %></td>
-	<td><%= book.get('author') %></td>
-	<td><%= book.get('signature') %></td>
-	<td><%= book.get('keywords') %></td>
-	<td><%= book.get('isbn13') %></td>
+	<td data-attribute="id"><%= book.get('id') %></td>
+	<td data-attribute="title"><%= book.get('title') %></td>
+	<td data-attribute="publisher"><%= book.get('publisher') %></td>
+	<td data-attribute="author"><%= book.get('author') %></td>
+	<td data-attribute="signature"><%= book.get('signature') %></td>
+	<td data-attribute="keywords"><%= book.get('keywords') %></td>
+	<td data-attribute="isbn13">&nbsp;<%= book.get('isbn13') %></td>
 	<td>
-		<span class="edit">edit</span>
+		<span class="edit">edit all</span>
 		|
 		<span class="delete">delete</span>
 	</td>
+</script>
+
+<script type="text/template" id="book_label" class="template">
+    <%= book.get(attribute) %>
+</script>
+
+<script type="text/template" id="book_label_edit" class="template">
+    <input type="text" name="<%= attribute %>" value="<%= book.get(attribute) %>" />
 </script>
 
 <!--

@@ -35,8 +35,22 @@
 		/**
 		 * render read only mode
 		 */
-		renderShow : function(){
-			$(this.el).html(us.template(app.TM.getTemplate('book'), {book : this.model}));
+		renderShow : function() {
+			var book = this.model;
+
+			$(this.el).html(us.template(app.TM.getTemplate('book'), {book : book}));
+
+			us.each($(this.el).find('td[data-attribute]'), function(el) {
+				var $el = $(el),
+					attribute = $el.data().attribute,
+					itemLabelView = new app.BookLabelView({
+						model: book,
+						attribute: attribute
+					});
+
+				$el.html(itemLabelView.render().el);
+			});
+
 			return this;
 		},
 

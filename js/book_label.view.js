@@ -1,0 +1,86 @@
+/*jslint browser: true*/
+/*global jQuery, Backbone, _*/
+
+(function($, app, Backbone, us) {
+	'use strict';
+
+	app.BookLabelView = Backbone.View.extend({
+		tagName : 'span',
+		attribute : '',
+		readOnly : true,
+
+		events : {
+			'click' : 'renderEdit',
+			'focusout' : 'updateModel',
+			'keyup' : 'handleEnter'
+		},
+
+		initialize : function(options) {
+			this.attribute = options.attribute;
+
+			us.bindAll(this, 'render', 'renderEdit', 'updateModel', 'handleEnter');
+
+			this.model.bind('change', this.render);
+		},
+
+		render : function() {
+			var template_name = this.readOnly ? 'book_label' : 'book_label_edit';
+
+			$(this.el).html(us.template(app.TM.getTemplate(template_name), {
+				book : this.model,
+				attribute : this.attribute
+			}));
+
+			if (!this.readOnly) {
+				$(this.el).find('input').focus();
+			}
+
+			return this;
+		},
+
+		renderEdit : function() {
+			if (this.readOnly) {
+				this.readOnly = false;
+				return this.render();
+			}
+
+			return this;
+		},
+
+		/**
+		 * check if enter was pressed and trigger model update
+		 *
+		 * @param {Event} e
+		 * @returns {void}
+		 */
+		handleEnter : function(e) {
+			var code = e.which; // recommended to use e.which, it's normalized across browsers
+			if (code === 13) {
+				e.preventDefault();
+				this.updateModel();
+			}
+		},
+
+		/**
+		 * update and save model attribute
+		 *
+		 * @returns {void}
+		 */
+		updateModel : function() {
+			var _self = this,
+				value = $(this.el).find('input').val(),
+				form_data = {};
+
+			form_data[this.attribute] = value;
+
+			this.model.save(form_data, {
+				success: function() {
+					_self.readOnly = true;
+					_self.render();
+				}
+			});
+		}
+
+	});
+
+}(jQuery, window, Backbone, _));
