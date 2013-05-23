@@ -57,12 +57,11 @@
 	</td>
 </script>
 
+<!--
+	single book attribute label
+-->
 <script type="text/template" id="book_label" class="template">
     <%= book.get(attribute) %>
-</script>
-
-<script type="text/template" id="book_label_edit" class="template">
-    <input type="text" name="<%= attribute %>" value="<%= book.get(attribute) %>" />
 </script>
 
 <!--
@@ -79,4 +78,11 @@
 	<td>
 		<span class="save">save</span>
 	</td>
+</script>
+
+<!--
+	single book attribute label editable
+-->
+<script type="text/template" id="book_label_edit" class="template">
+    <input type="text" name="<%= attribute %>" value="<%= book.get(attribute) %>" />
 </script>
