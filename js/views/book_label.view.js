@@ -5,7 +5,7 @@
 	'use strict';
 
 	app.BookLabelView = Backbone.View.extend({
-		tagName : 'span',
+		tagName : 'span class="attribute"',
 		attribute : '',
 		readOnly : true,
 

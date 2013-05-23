@@ -1,0 +1,88 @@
+/*
+    Document   : basic
+    Created on : 23.05.2013, 23:30:23
+    Author     : marcobehnke
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html, body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+table.booklist {
+	width: 100%;
+}
+
+table th, table td {
+	text-align: left;
+	vertical-align: middle;
+	border: 1px solid #ccc;
+	height: 22px;
+	width: 13%;
+	padding: 2px;
+}
+
+
+table th.id, table td.id {
+	width: 5%;
+}
+
+table th.id, table td.id, table th.action, table td.action {
+	text-align: center;
+}
+
+table th {
+	font-weight: bold;
+}
+
+table th.action {
+	border: none;
+}
+
+table td span.attribute {
+	display: block;
+	width: 100%;
+	height: 20px;
+	line-height: 18px;
+}
+
+table td input {
+	display: block;
+	height: 18px;
+	line-height: 18px;
+	border: none;
+	background-color: #ccc;
+	width: 100%;
+}
+
+#new_book_container form {
+	margin: 12px;
+}
+
+#new_book_container form:after {
+	content: ".";
+	display: block;
+	height: 0px;
+	clear: both;
+	visibility: hidden;
+}
+
+#new_book_container form div.input {
+	width: 25%;
+	margin-bottom: 10px;
+}
+#new_book_container form label, #new_book_container form input {
+	display: inline-block;
+	width: 48%;
+}
+
+#new_book_container form input#add {
+	width: 25%;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}

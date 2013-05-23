@@ -8,7 +8,7 @@
 		counter: 0,
 
 		events: {
-			'click button#add': 'addItem'
+			'click input#add': 'addItem'
 		},
 
 		initialize: function(){
