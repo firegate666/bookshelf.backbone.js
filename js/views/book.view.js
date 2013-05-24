@@ -34,19 +34,20 @@
 		 * render read only mode
 		 */
 		renderShow : function() {
-			var book = this.model;
+			var $el = this.$el,
+				book = this.model;
 
-			$(this.el).html(us.template(app.TM.getTemplate('book'), {book : book}));
+			$el.html(us.template(app.TM.getTemplate('book'), {book : book}));
 
-			us.each($(this.el).find('td[data-attribute]'), function(el) {
-				var $el = $(el),
-					attribute = $el.data().attribute,
+			us.each($el.find('td[data-attribute]'), function(td) {
+				var $td = $(td),
+					attribute = $td.data().attribute,
 					itemLabelView = new app.BookLabelView({
 						model: book,
 						attribute: attribute
 					});
 
-				$el.html(itemLabelView.render().el);
+				$td.html(itemLabelView.render().el);
 			});
 
 			return this;
@@ -58,7 +59,7 @@
 		renderEdit : function(){
 			this.readOnly = false;
 
-			$(this.el).html(us.template(app.TM.getTemplate('book_edit'), {book : this.model}));
+			this.$el.html(us.template(app.TM.getTemplate('book_edit'), {book : this.model}));
 			return this;
 		},
 
@@ -67,7 +68,7 @@
 		 */
 		updateModel : function() {
 			var _self = this,
-				$el = $(this.el),
+				$el = this.$el,
 				form_data = {};
 
 			us.each($el.find('input'), function(input) {
@@ -89,7 +90,7 @@
 		 * unrender row
 		 */
 		unrender : function(){
-			$(this.el).remove();
+			this.$el.remove();
 		},
 
 		/**

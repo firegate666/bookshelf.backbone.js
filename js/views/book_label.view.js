@@ -17,20 +17,20 @@
 
 		initialize : function(options) {
 			this.attribute = options.attribute;
-
 			this.model.on('change', this.render, this);
 		},
 
 		render : function() {
-			var template_name = this.readOnly ? 'book_label' : 'book_label_edit';
+			var $el = this.$el,
+				template_name = this.readOnly ? 'book_label' : 'book_label_edit';
 
-			$(this.el).html(us.template(app.TM.getTemplate(template_name), {
+			$el.html(us.template(app.TM.getTemplate(template_name), {
 				book : this.model,
 				attribute : this.attribute
 			}));
 
 			if (!this.readOnly) {
-				$(this.el).find('input').focus();
+				$el.find('input').focus();
 			}
 
 			return this;
