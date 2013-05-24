@@ -15,8 +15,8 @@
 		},
 
 		initialize : function() {
-			this.model.on('change', this.render, this);
-			this.model.on('remove', this.unrender, this);
+			this.listenTo(this.model, 'change', this.render);
+			this.listenTo(this.model, 'remove', this.unrender);
 		},
 
 		/**

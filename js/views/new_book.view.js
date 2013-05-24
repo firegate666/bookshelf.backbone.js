@@ -40,7 +40,7 @@
 				book_data[input.name] = input.value;
 			});
 
-			new_book.on("invalid", function(model, error) {
+			this.listenToOnce(new_book, "invalid", function(model, error) {
 				var invalid_value = model.get(error.key);
 
 				$form.find('.error').text(
@@ -48,7 +48,7 @@
 					+ '; is '
 					+ (invalid_value || 'empty')
 				);
-			}, this);
+			});
 
 			new_book.save(book_data, {success: function() {
 				book_collection.add(new_book); // add item to collection; view is updated via event 'add'

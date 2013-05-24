@@ -7,7 +7,7 @@
 	app.BooksView = Backbone.View.extend({
 
 		initialize: function(){
-			this.collection.on('add', this.appendItem, this); // collection event binder
+			this.listenTo(this.collection, 'add', this.appendItem); // collection event binder
 			this.render(); // not all views are self-rendering. This one is.
 		},
 
@@ -32,7 +32,7 @@
 			var itemView = new app.BookView({
 				model: book
 			});
-			
+
 			this.$el.find('tbody')
 				.append(itemView.render().el);
 		}
