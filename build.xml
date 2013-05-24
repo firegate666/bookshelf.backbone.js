@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="bookshelf" default="build">
+
+	<taskdef name="jslint"
+           classname="com.googlecode.jslint4java.ant.JSLintTask"
+           classpath="build/libs/jslint/jslint4java-2.0.2.jar" />
+
+	<!-- full build -->
+	<target name="build" depends="prepare,lint,jslint" />
+
+	<target name="clean" description="Cleanup build artifacts">
+		<delete dir="${basedir}/build/logs" />
+		<delete dir="${basedir}/build/jslint" />
+	</target>
+
+	<target name="prepare" depends="clean" description="Prepare for build">
+		<mkdir dir="${basedir}/build/logs" />
+		<mkdir dir="${basedir}/build/jslint" />
+	</target>
+
+	<target name="lint">
+		<apply executable="php" failonerror="true">
+			<arg value="-l" />
+
+			<fileset dir="${basedir}">
+				<include name="**/*.php" />
+				<modified />
+			</fileset>
+
+		</apply>
+	</target>
+
+	<target name="jslint" depends="clean,prepare">
+		<jslint options="white,nomen">
+			<formatter type="plain" />
+			<formatter type="junit" destfile="build/jslint" />
+			<formatter type="xml" destfile="build/jslint/jslint.xml" />
+			<formatter type="checkstyle" destfile="build/jslint/jslint-checkstyle.xml" />
+			<fileset dir="${basedir}" includes="**/*.js" excludes="js/lib/**" />
+		</jslint>
+	</target>
+
+</project>

@@ -1,2 +1,7 @@
 nbproject/*
 
+cache.properties
+ 
+build/logs
+build/jslint
+
