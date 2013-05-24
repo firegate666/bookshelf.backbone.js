@@ -15,10 +15,8 @@
 		},
 
 		initialize : function() {
-			us.bindAll(this, 'render', 'renderShow', 'renderEdit', 'unrender', 'remove'); // every function that uses 'this' as the current object should be in here
-
-			this.model.bind('change', this.render);
-			this.model.bind('remove', this.unrender);
+			this.model.on('change', this.render, this);
+			this.model.on('remove', this.unrender, this);
 		},
 
 		/**

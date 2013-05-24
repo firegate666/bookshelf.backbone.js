@@ -18,9 +18,7 @@
 		initialize : function(options) {
 			this.attribute = options.attribute;
 
-			us.bindAll(this, 'render', 'renderEdit', 'updateModel', 'handleEnter');
-
-			this.model.bind('change', this.render);
+			this.model.on('change', this.render, this);
 		},
 
 		render : function() {

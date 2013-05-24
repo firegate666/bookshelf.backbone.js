@@ -7,9 +7,7 @@
 	app.BooksView = Backbone.View.extend({
 
 		initialize: function(){
-			us.bindAll(this, 'render', 'appendItem'); // fixes loss of context for 'this' within methods
-
-			this.collection.on('add', this.appendItem); // collection event binder
+			this.collection.on('add', this.appendItem, this); // collection event binder
 			this.render(); // not all views are self-rendering. This one is.
 		},
 

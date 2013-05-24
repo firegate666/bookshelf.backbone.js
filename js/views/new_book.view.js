@@ -12,8 +12,6 @@
 		},
 
 		initialize: function(){
-			us.bindAll(this, 'render', 'addItem'); // fixes loss of context for 'this' within methods
-
 			this.render(); // not all views are self-rendering. This one is.
 		},
 
@@ -50,7 +48,7 @@
 					+ '; is '
 					+ (invalid_value || 'empty')
 				);
-			});
+			}, this);
 
 			new_book.save(book_data, {success: function() {
 				book_collection.add(new_book); // add item to collection; view is updated via event 'add'
