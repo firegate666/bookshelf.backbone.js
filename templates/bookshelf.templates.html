@@ -46,11 +46,11 @@
 			<tr>
 				<th class="id">ID</th>
 				<th>Title</th>
-				<th>Publisher</th>
+				<th class="not-640px">Publisher</th>
 				<th>Author</th>
-				<th>Signature</th>
-				<th>Keywords</th>
-				<th>ISBN-13</th>
+				<th class="not-640px">Signature</th>
+				<th class="not-640px">Keywords</th>
+				<th class="not-640px">ISBN-13</th>
 				<th class="action"><!--action column--></th>
 			</tr>
 		</thead>
@@ -67,11 +67,11 @@
 <script type="text/template" id="book" class="template">
 	<td class="id"><%= book.get('id') %></td>
 	<td data-attribute="title"><%= book.get('title') %></td>
-	<td data-attribute="publisher"><%= book.get('publisher') %></td>
+	<td data-attribute="publisher" class="not-640px"><%= book.get('publisher') %></td>
 	<td data-attribute="author"><%= book.get('author') %></td>
-	<td data-attribute="signature"><%= book.get('signature') %></td>
-	<td data-attribute="keywords"><%= book.get('keywords') %></td>
-	<td data-attribute="isbn13">&nbsp;<%= book.get('isbn13') %></td>
+	<td data-attribute="signature" class="not-640px"><%= book.get('signature') %></td>
+	<td data-attribute="keywords" class="not-640px"><%= book.get('keywords') %></td>
+	<td data-attribute="isbn13" class="not-640px">&nbsp;<%= book.get('isbn13') %></td>
 	<td class="action">
 		<span class="edit">edit all</span>
 		|
@@ -92,11 +92,11 @@
 <script type="text/template" id="book_edit" class="template">
 	<td class="id"><%= book.get('id') %> <input type="hidden" name="id" value="<%= book.get('id') %>" /></td>
 	<td><input type="text" name="title" value="<%= book.get('title') %>" /></td>
-	<td><input type="text" name="publisher" value="<%= book.get('publisher') %>" /></td>
+	<td class="not-640px"><input type="text" name="publisher" value="<%= book.get('publisher') %>" /></td>
 	<td><input type="text" name="author" value="<%= book.get('author') %>" /></td>
-	<td><input type="text" name="signature" value="<%= book.get('signature') %>" /></td>
-	<td><input type="text" name="keywords" value="<%= book.get('keywords') %>" /></td>
-	<td><input type="text" name="isbn13" value="<%= book.get('isbn13') %>" /></td>
+	<td class="not-640px"><input type="text" name="signature" value="<%= book.get('signature') %>" /></td>
+	<td class="not-640px"><input type="text" name="keywords" value="<%= book.get('keywords') %>" /></td>
+	<td class="not-640px"><input type="text" name="isbn13" value="<%= book.get('isbn13') %>" /></td>
 	<td class="action">
 		<span class="save">save</span>
 	</td>

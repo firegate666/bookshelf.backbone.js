@@ -22,6 +22,7 @@ table th, table td {
 	height: 22px;
 	width: 13%;
 	padding: 2px;
+	overflow: hidden;
 }
 
 
@@ -59,6 +60,7 @@ table td input {
 
 #new_book_container form {
 	margin: 12px;
+	max-width: 400px;
 }
 
 #new_book_container form:after {
@@ -70,7 +72,7 @@ table td input {
 }
 
 #new_book_container form div.input {
-	width: 25%;
+	width: 100%;
 	margin-bottom: 10px;
 }
 #new_book_container form label, #new_book_container form input {
