@@ -10,23 +10,19 @@
 		Backbone.emulateJSON = true;
 
 		app.TM = new app.TemplateManager();
+		app.App = new app.Bookshelf();
 
-		var book_collection = new app.Books();
-		book_collection.fetch();
+		app.book_collection = new app.Books();
+		app.book_collection.fetch();
 
 		$.get('templates/bookshelf.templates.html', {}, function(content) {
 			app.TM.addTemplates('.template', content);
 
-			app.new_book_view = new app.NewBookView({
-				el: $('#new_book_container'),
-				collection: book_collection
+			app.Router = new app.MainRouter({
+				app: app.App
 			});
 
-			app.books_view = new app.BooksView({
-				el: $('#book_list_container'),
-				collection: book_collection
-			});
-
+			Backbone.history.start();
 		}, 'html');
 
 	});
