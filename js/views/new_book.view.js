@@ -52,7 +52,7 @@
 
 			new_book.save(book_data, {success: function() {
 				book_collection.add(new_book); // add item to collection; view is updated via event 'add'
-				_self.reset();
+				app.Router.navigate("book/list", {trigger: true, replace: true});
 			}});
 		},
 
@@ -67,6 +67,7 @@
 			$form.find('.error').text('');
 			$form.get(0).reset();
 		}
+
 	});
 
 }(window, Backbone, _));
