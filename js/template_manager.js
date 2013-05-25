@@ -41,10 +41,16 @@
 	 * @return {TemplateManager}
 	 */
 	TemplateManager.prototype.addTemplates = function(match, content) {
+		// temp add to page to allow jquery to operate on it
+		$(content).appendTo('body').wrapAll('<div id="templates" />');
+
 		// extract templates and add to store
-		$(content).find(match).each(function() {
+		$(match, $('body')).each(function() {
 			templates[$(this).attr('id')] = $(this).html();
 		});
+
+		// clean up
+		$('#templates').remove();
 
 		return this;
 	};
