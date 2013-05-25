@@ -6,8 +6,14 @@
 
 	app.Bookshelf = function() {
 
+		/**
+		 * store current view
+		 */
 		var currentView = null;
 
+		/**
+		 * handle switch to homescreen
+		 */
 		this.onHome = function() {
 			if (currentView) {
 				currentView.remove();
@@ -15,6 +21,9 @@
 			}
 		};
 
+		/**
+		 * handle book new dialog
+		 */
 		this.onBookNew = function() {
 			if (currentView) {
 				currentView.remove();
@@ -27,7 +36,10 @@
 			});
 		};
 
-		this.onBookList = function(id) {
+		/**
+		 * handle book list
+		 */
+		this.onBookList = function() {
 			if (currentView) {
 				currentView.remove();
 				currentView = null;
