@@ -11,6 +11,14 @@ html, body {
 	font-size: 12px;
 }
 
+.selfclear:after {
+	content: ".";
+	display: block;
+	height: 0px;
+	clear: both;
+	visibility: hidden;
+}
+
 table.booklist {
 	width: 100%;
 }
@@ -58,33 +66,58 @@ table td input {
 	width: 100%;
 }
 
-#new_book_container form {
+form {
 	margin: 12px;
 	max-width: 400px;
 }
 
-#new_book_container form:after {
-	content: ".";
-	display: block;
-	height: 0px;
-	clear: both;
-	visibility: hidden;
-}
-
-#new_book_container form div.input {
+form div.input {
 	width: 100%;
 	margin-bottom: 10px;
 }
-#new_book_container form label, #new_book_container form input {
+form label, #new_book_container form input {
 	display: inline-block;
 	width: 48%;
 }
 
-#new_book_container form input#add {
+form input#add {
 	width: 25%;
 }
 
 .error {
 	color: red;
 	font-weight: bold;
+}
+
+#navigation_container {
+	margin-bottom: 10px;
+}
+
+#navigation_container .main-navigation li {
+	float: left;
+	padding: 10px;
+	width: 100px;
+	text-align: center;
+	position: relative;
+	background: white;
+	border: 1px solid #ccc;
+}
+
+#navigation_container .sub-navigation {
+	display: none;
+}
+
+#navigation_container .main-navigation li:hover .sub-navigation {
+	display: block;
+	position: absolute;
+	z-index: 100;
+}
+
+#navigation_container .main-navigation li:hover .sub-navigation li {
+	border-top: 1px solid #ccc;
+	width: 75px;
+}
+
+#navigation_container .main-navigation li:hover .sub-navigation li:first-child {
+	border-top: none;
 }
